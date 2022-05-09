@@ -39,10 +39,14 @@
 Установить на личный компьютер:
 
 - VirtualBox
+
 ![img.png](img.png)
 - Vagrant
+
 ![img_1.png](img_1.png)
 - Ansible
+
+![img_2.png](img_2.png)
 
 *Приложить вывод команд установленных версий каждой из программ, оформленный в markdown.*
 
