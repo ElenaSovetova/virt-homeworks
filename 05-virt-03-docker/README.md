@@ -69,32 +69,53 @@ vagrant@vagrant:~/data$ docker exec -it d8be089cc982 bash
 [root@d8be089cc982 /]# cd data
 
 [root@d8be089cc982 data]# touch testfile
+
 [root@d8be089cc982 data]# echo dz > /data/testfile2
+
 [root@d8be089cc982 data]# echo dz > /data/testfile
+
 [root@d8be089cc982 data]# cat testfile
+
 dz
 [root@d8be089cc982 data]# exit
+
 exit
+
 vagrant@vagrant:~/data$ sudo vim host
+
 vagrant@vagrant:~/data$ cat host
+
 ssssssssss
+
 vagrant@vagrant:~/data$ docker exec -it d8be089cc982 bash
 [root@d8be089cc982 /]# cd data
 
 [root@d8be089cc982 data]# touch testfile
 
 [root@d8be089cc982 data]# echo dz > /data/testfile2
+
 [root@d8be089cc982 data]# echo dz > /data/testfile
+
 [root@d8be089cc982 data]# cat testfile
+
 dz
+
 [root@d8be089cc982 data]# exit
+
 exit
+
 vagrant@vagrant:~/data$ sudo vim host
+
 vagrant@vagrant:~/data$ cat host
+
 ssssssssss
+
 vagrant@vagrant:~/data$  docker exec -it b997065f307f bash
+
 root@b997065f307f:/# cd data
+
 root@b997065f307f:/data# ls
+
 host  testfile  testfile2
 
 
