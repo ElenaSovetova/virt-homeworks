@@ -150,7 +150,8 @@ vagrant@vagrant:~$ sudo docker exec -i vagrant-netology pg_dump -U vagrant test_
 
 Восстановите БД test_db в новом контейнере.
 При создании нового окнтейнера волюмы подключились атвоматически
-	```bash
+
+    ```bash
 vagrant@vagrant:~/6.2$ docker exec -it vagrant-netology-2 bash 
 root@e6fbc855b9a2:/# 
 root@e6fbc855b9a2:/# psql -U postgres
