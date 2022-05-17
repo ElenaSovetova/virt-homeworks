@@ -40,7 +40,7 @@ root@e5b7e5ffec57:/# psql -h localhost -p 5432 -U postgres -W
 
 postgres-# \d[S+] NAME
   
-postgres-# \dS+ pg_index
+postgres-# \dS+ pg_am
 
 ![img_6.png](img_6.png)
 
