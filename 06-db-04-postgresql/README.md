@@ -15,9 +15,43 @@
 - вывода описания содержимого таблиц
 - выхода из psql
 
+---
+```html
+sudo docker pull postgres:13
+sudo docker volume create vol_postgres
+sudo docker run --rm --name pg-docker -e POSTGRES_PASSWORD=postgres -ti -p 5432:5432 -v vol_postgres:/var/lib/postgresql/data postgres:13
+sudo docker exec -it pg-docker bash
+root@e5b7e5ffec57:/# psql -h localhost -p 5432 -U postgres -W
+```
+* вывода списка БД
+![img_2.png](img_2.png)
+
+* подключения к БД
+![img_4.png](img_4.png)
+
+* вывода списка таблиц
+
+ вывода списка таблиц postgres-# \dt - в таблицах пусто
+
+\dtS : параметр S - для системных объектов
+![img_5.png](img_5.png)
+
+вывод описания содержимого таблиц
+
+postgres-# \d[S+] NAME
+  
+postgres-# \dS+ pg_index
+
+![img_6.png](img_6.png)
+
+* выход из psql
+postgres-# \q
+
+
 ## Задача 2
 
 Используя `psql` создайте БД `test_database`.
+![img_8.png](img_8.png)
 
 Изучите [бэкап БД](https://github.com/netology-code/virt-homeworks/tree/master/06-db-04-postgresql/test_data).
 
