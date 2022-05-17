@@ -150,7 +150,28 @@ vagrant@vagrant:~$ sudo docker exec -i vagrant-netology pg_dump -U vagrant test_
 
 Восстановите БД test_db в новом контейнере.
 При создании нового окнтейнера волюмы подключились атвоматически
+	```bash
+vagrant@vagrant:~/6.2$ docker exec -it vagrant-netology-2 bash 
+root@e6fbc855b9a2:/# 
+root@e6fbc855b9a2:/# psql -U postgres
+psql (12.9 (Debian 12.9-1.pgdg110+1))
+Type "help" for help.
 
+
+postgres=# \l
+                                 List of databases
+   Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   
+-----------+----------+----------+------------+------------+-----------------------
+ postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 | 
+ template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+ test1     | postgres | UTF8     | en_US.utf8 | en_US.utf8 | 
+ test_db   | postgres | UTF8     | en_US.utf8 | en_US.utf8 | 
+(6 rows)
+
+	```
 
 Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
 
