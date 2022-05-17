@@ -136,11 +136,21 @@ width — средний размер одной строки в байтах.
 
 Создайте бэкап БД test_db и поместите его в volume, предназначенный для бэкапов (см. Задачу 1).
 
+vagrant@vagrant:~$ sudo docker exec -i vagrant-netology pg_dump -U vagrant test_db -f /var/lib/postgresql/data/dump_test.sql
+
+![img_24.png](img_24.png)
 Остановите контейнер с PostgreSQL (но не удаляйте volumes).
+![img_25.png](img_25.png)
 
 Поднимите новый пустой контейнер с PostgreSQL.
 
+ sudo docker run --rm --name vagrant-netology2 -e POSTGRES_PASSWORD=vagrant -e POSTGRES_USER=vagrant -e POSTGRES_DB=vagrant -d -ti -p 5432:5432 -v vol1:/var/lib/postgresql/data -v vol2:/var/lib/postgresql postgres:12
+![img_26.png](img_26.png)
+
+
 Восстановите БД test_db в новом контейнере.
+При создании нового окнтейнера волюмы подключились атвоматически
+
 
 Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
 
