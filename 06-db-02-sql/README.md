@@ -144,8 +144,8 @@ vagrant@vagrant:~$ sudo docker exec -i vagrant-netology pg_dump -U vagrant test_
 
 Поднимите новый пустой контейнер с PostgreSQL.
 
- sudo docker run --rm --name vagrant-netology2 -e POSTGRES_PASSWORD=vagrant -e POSTGRES_USER=vagrant -e POSTGRES_DB=vagrant -d -ti -p 5432:5432 -v vol1:/var/lib/postgresql/data -v vol2:/var/lib/postgresql postgres:12
-![img_26.png](img_26.png)
+ sudo docker run --rm --name vagrant-netology-2 -e POSTGRES_PASSWORD=vagrant -e POSTGRES_USER=vagrant -e POSTGRES_DB=vagrant -d -ti -p 5432:5432 -v vol1:/var/lib/postgresql/data -v vol2:/var/lib/postgresql postgres:12
+![img_27.png](img_27.png)
 
 
 Восстановите БД test_db в новом контейнере.
@@ -175,8 +175,94 @@ postgres=# \l
 
 ```
 
+```html
+vagrant=# \dt
+Did not find any relations.
+vagrant=# \c test_db
+You are now connected to database "test_db" as user "vagrant".
+test_db=# \dt
+         List of relations
+ Schema |  Name   | Type  |  Owner
+--------+---------+-------+---------
+ public | clients | table | vagrant
+ public | orders  | table | vagrant
+(2 rows)
+
+test_db=# select * from clients;
+ id |       lastname       | country | booking
+----+----------------------+---------+---------
+  4 | Ронни Джеймс Дио     | Russia  |
+  5 | Ritchie Blackmore    | Russia  |
+  1 | Иванов Иван Иванович | USA     |       3
+  2 | Петров Петр Петрович | Canada  |       4
+  3 | Иоганн Себастьян Бах | Japan   |       5
+(5 rows)
+
+test_db=# select * from orders;
+ id |  name   | price
+----+---------+-------
+  1 | Шоколад |    10
+  2 | Принтер |  3000
+  3 | Книга   |   500
+  4 | Монитор |  7000
+  5 | Гитара  |  4000
+(5 rows)
+```
+
+
 Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
 
+```html
+vagrant=# drop database test_db;
+DROP DATABASE
+vagrant=# create database test_db;
+CREATE DATABASE
+vagrant=# \q
+root@247f0bc6f0b3:/# psql -U vagrant -d test_db -f /var/lib/postgresql/data/dump_test.sql;
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
+
+(1 row)
+
+SET
+SET
+SET
+SET
+SET
+SET
+CREATE TABLE
+ALTER TABLE
+CREATE TABLE
+ALTER TABLE
+COPY 5
+COPY 5
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+GRANT
+GRANT
+root@247f0bc6f0b3:/#  psql -U vagrant
+psql (12.10 (Debian 12.10-1.pgdg110+1))
+Type "help" for help.
+
+vagrant=# \l
+                               List of databases
+   Name    |  Owner  | Encoding |  Collate   |   Ctype    |  Access privileges
+-----------+---------+----------+------------+------------+---------------------
+ postgres  | vagrant | UTF8     | en_US.utf8 | en_US.utf8 |
+ template0 | vagrant | UTF8     | en_US.utf8 | en_US.utf8 | =c/vagrant         +
+           |         |          |            |            | vagrant=CTc/vagrant
+ template1 | vagrant | UTF8     | en_US.utf8 | en_US.utf8 | =c/vagrant         +
+           |         |          |            |            | vagrant=CTc/vagrant
+ test_db   | vagrant | UTF8     | en_US.utf8 | en_US.utf8 |
+ vagrant   | vagrant | UTF8     | en_US.utf8 | en_US.utf8 |
+(5 rows)
+```
 ---
 
 ### Как cдавать задание
