@@ -21,7 +21,7 @@ sudo docker pull postgres:13
 sudo docker volume create vol_postgres
 sudo docker run --rm --name pg-docker -e POSTGRES_PASSWORD=postgres -ti -p 5432:5432 -v vol_postgres:/var/lib/postgresql/data postgres:13
 sudo docker exec -it pg-docker bash
-root@e5b7e5ffec57:/# psql -h localhost -p 5432 -U postgres -W
+root@477fcf9cbe0f:/# psql -h localhost -p 5432 -U postgres -W
 ```
 * вывода списка БД
 ![img_2.png](img_2.png)
@@ -51,7 +51,6 @@ postgres-# \q
 ## Задача 2
 
 Используя `psql` создайте БД `test_database`.
-![img_8.png](img_8.png)
 
 Изучите [бэкап БД](https://github.com/netology-code/virt-homeworks/tree/master/06-db-04-postgresql/test_data).
 
@@ -63,7 +62,13 @@ postgres-# \q
 
 Используя таблицу [pg_stats](https://postgrespro.ru/docs/postgresql/12/view-pg-stats), найдите столбец таблицы `orders` 
 с наибольшим средним значением размера элементов в байтах.
+---
 
+![img_10.png](img_10.png)
+
+![img_9.png](img_9.png)
+
+![img_11.png](img_11.png)
 **Приведите в ответе** команду, которую вы использовали для вычисления и полученный результат.
 
 ## Задача 3
@@ -75,13 +80,37 @@ postgres-# \q
 Предложите SQL-транзакцию для проведения данной операции.
 
 Можно ли было изначально исключить "ручное" разбиение при проектировании таблицы orders?
-
+---
+![img_12.png](img_12.png)
+```html
+test_database=# alter table orders rename to orders_simple;
+ALTER TABLE
+test_database=# сreate table orders (id integer, title varchar(80), price integer) partition by range(price);
+ERROR:  syntax error at or near "сreate"
+test_database=#  create table orders (id integer, title varchar(80), price integer) partition by range(price);
+CREATE TABLE
+test_database=#  create table orders_less499 partition of orders for values from (0) to (499);
+CREATE TABLE
+test_database=#  create table orders_more499 partition of orders for values from (499) to (999999999);
+CREATE TABLE
+test_database=#  insert into orders (id, title, price) select * from orders_simple;
+INSERT 0 8
+test_database=#
+```
+Ручное разбиение можно было исключить,если бы сразу при проектировании таблицу сделали бы селекционной, тогда не пришлось бы переименовывать исходную таблицу и переносить данные в новую.
 ## Задача 4
 
 Используя утилиту `pg_dump` создайте бекап БД `test_database`.
 
+```html
+root@477fcf9cbe0f:/var/lib/postgresql#  pg_dump -U postgres -d test_database >test_database_dump.sql
+```
+![img_13.png](img_13.png)
+
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
 
+Для уникальности можно добавить индекс или первичный ключ.
+CREATE INDEX ON orders ((lower(title)));
 ---
 
 ### Как cдавать задание
