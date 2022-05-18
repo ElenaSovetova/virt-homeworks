@@ -109,7 +109,7 @@ root@477fcf9cbe0f:/var/lib/postgresql#  pg_dump -U postgres -d test_database >te
 
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
 
-Для уникальности можно добавить индекс или первичный ключ.
+* Для уникальности можно добавить индекс или первичный ключ.
 CREATE INDEX ON orders ((lower(title)));
 ---
 
