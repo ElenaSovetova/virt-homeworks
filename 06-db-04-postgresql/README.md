@@ -109,8 +109,15 @@ root@477fcf9cbe0f:/var/lib/postgresql#  pg_dump -U postgres -d test_database >te
 
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
 
-* Для уникальности можно добавить индекс или первичный ключ.
-CREATE INDEX ON orders ((lower(title)));
+* добавить атрибут UNIQUE к определению поля title (title character varying(80) NOT NULL UNIQUE
+
+Сделать составное ограничение для секционированной таблицы (т.к ограничения уникальности в секционированных таблицах должны включать все столбцы ключа разбиения.), то выглядеть будет
+
+title character varying(80) NOT NULL UNIQUE
+
+alter table orders add unique (title, price); 
+
+
 ---
 
 ### Как cдавать задание
